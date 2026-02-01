@@ -23,7 +23,7 @@ public class WorkItemCollection implements WorkItemStorage {
         try {
             workItems.put(workItem.getId(), workItem);
         } catch (Exception e) {
-            log.severe(MessageFormat.format("Failed to save work item {0}, reason {1}", workItem, e.getMessage()));
+            log.severe(MessageFormat.format("Failed to save work item {0}. Reason: {1}", workItem, e.getMessage()));
             throw e;
         }
         return workItem;
@@ -31,31 +31,35 @@ public class WorkItemCollection implements WorkItemStorage {
 
     @Override
     public WorkItemModel get(Long id) {
-        WorkItemModel workItem = workItems.get(id);
-        if (workItem == null)
-            log.severe(MessageFormat.format("Work item with id [{0}] not found", id));
+        if (workItemNotPresent(id))
+            logAndThrowIllegalArgumentException(MessageFormat.format("Work item with id [{0}] not found.", id));
 
-        return workItem;
+        return workItems.get(id);
     }
 
     @Override
     public WorkItemModel update(WorkItemModel workItem) {
-        if (!workItems.containsKey(workItem.getId())) {
-            log.severe(MessageFormat.format("Work item with id [{0}] cannot be updated. Reason: not found.", workItem.getId()));
-            throw new IllegalArgumentException("Cannot update non-existing work item with id " + workItem.getId() + ".");
-        } else {
-            workItems.put(workItem.getId(), workItem);
-        }
+        if (workItemNotPresent(workItem.getId()))
+            logAndThrowIllegalArgumentException(MessageFormat.format("Work item with id [{0}] cannot be updated. Reason: not found.", workItem.getId()));
 
+        workItems.put(workItem.getId(), workItem);
         return workItem;
     }
 
     @Override
     public void delete(Long id) {
-        if(!workItems.containsKey(id)){
-            log.severe(MessageFormat.format("Work item with id [{0}] cannot be deleted. Reason: not found.", id));
-            throw new IllegalArgumentException("Cannot delete non-existing work item with id " + id + ".");
-        }
+        if (workItemNotPresent(id))
+            logAndThrowIllegalArgumentException(MessageFormat.format("Work item with id [{0}] cannot be deleted. Reason: not found.", id));
+
         workItems.remove(id);
+    }
+
+    private boolean workItemNotPresent(Long id) {
+        return !workItems.containsKey(id);
+    }
+
+    private void logAndThrowIllegalArgumentException(String message) {
+        log.severe(message);
+        throw new IllegalArgumentException(message);
     }
 }
