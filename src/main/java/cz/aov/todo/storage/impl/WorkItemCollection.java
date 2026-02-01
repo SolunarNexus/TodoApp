@@ -37,4 +37,16 @@ public class WorkItemCollection implements WorkItemStorage {
 
         return workItem;
     }
+
+    @Override
+    public WorkItemModel update(WorkItemModel workItem) {
+        if (!workItems.containsKey(workItem.getId())) {
+            log.severe(MessageFormat.format("Work item with id [{0}] cannot be updated. Reason: not found.", workItem.getId()));
+            throw new IllegalArgumentException("Cannot update non-existing work item with id " + workItem.getId() + ".");
+        } else {
+            workItems.put(workItem.getId(), workItem);
+        }
+
+        return workItem;
+    }
 }

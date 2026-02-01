@@ -18,4 +18,12 @@ public interface WorkItemStorage {
      * @return the work item or null if not found.
      */
     WorkItemModel get(Long id);
+
+    /**
+     * Update a single work item.
+     *
+     * @param workItem the work item to update.
+     * @return the updated work item.
+     */
+    WorkItemModel update(WorkItemModel workItem);
 }

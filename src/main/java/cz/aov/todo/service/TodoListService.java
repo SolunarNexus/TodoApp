@@ -18,4 +18,11 @@ public interface TodoListService {
      * @return the work item or null if not found.
      */
     WorkItemModel getWorkItem(Long id);
+
+    /**
+     * Updates a work item in the to-do list.
+     * @param workItem the work item to update.
+     * @return the updated work item.
+     */
+    WorkItemModel updateWorkItem(WorkItemModel workItem);
 }

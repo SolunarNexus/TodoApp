@@ -1,6 +1,7 @@
 package cz.aov.todo.controller;
 
 import cz.aov.todo.controller.dto.WorkItemDtoCreate;
+import cz.aov.todo.controller.dto.WorkItemDtoUpdate;
 import cz.aov.todo.model.WorkItemModel;
 import cz.aov.todo.service.TodoListService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,5 +47,24 @@ public class TodoListController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Work item not found");
 
         return model;
+    }
+
+    @PutMapping("/update")
+    @Operation(summary = "Update work item to the todo list.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Work item updated successfully",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = WorkItemModel.class))}),
+            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
+    })
+    public WorkItemModel updateWorkItem(WorkItemDtoUpdate workItemDto) {
+        WorkItemModel updateWorkItem;
+
+        try {
+            updateWorkItem = todoListService.updateWorkItem(new WorkItemModel(workItemDto));
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+
+        return updateWorkItem;
     }
 }
