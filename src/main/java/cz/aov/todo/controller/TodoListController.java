@@ -50,7 +50,7 @@ public class TodoListController {
     }
 
     @PutMapping("/update")
-    @Operation(summary = "Update work item to the todo list.")
+    @Operation(summary = "Update work item to the todo list")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Work item updated successfully",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = WorkItemModel.class))}),
@@ -66,5 +66,20 @@ public class TodoListController {
         }
 
         return updateWorkItem;
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Remove work item from the todo list")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Work item removed successfully"),
+            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
+    })
+    public void removeWorkItem(@PathVariable Long id) {
+
+        try {
+            todoListService.removeWorkItem(id);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 }
