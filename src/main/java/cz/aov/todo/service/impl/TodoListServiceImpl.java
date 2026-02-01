@@ -29,4 +29,9 @@ public class TodoListServiceImpl implements TodoListService {
     public WorkItemModel updateWorkItem(WorkItemModel workItem) {
         return storage.update(workItem);
     }
+
+    @Override
+    public void removeWorkItem(Long id) {
+        storage.delete(id);
+    }
 }

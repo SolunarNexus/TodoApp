@@ -49,4 +49,13 @@ public class WorkItemCollection implements WorkItemStorage {
 
         return workItem;
     }
+
+    @Override
+    public void delete(Long id) {
+        if(!workItems.containsKey(id)){
+            log.severe(MessageFormat.format("Work item with id [{0}] cannot be deleted. Reason: not found.", id));
+            throw new IllegalArgumentException("Cannot delete non-existing work item with id " + id + ".");
+        }
+        workItems.remove(id);
+    }
 }
