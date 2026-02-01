@@ -25,4 +25,11 @@ public interface TodoListService {
      * @return the updated work item.
      */
     WorkItemModel updateWorkItem(WorkItemModel workItem);
+
+    /**
+     * Removes a work item from the to-do list.
+     *
+     * @param id the id of the work item to remove.
+     */
+    void removeWorkItem(Long id);
 }

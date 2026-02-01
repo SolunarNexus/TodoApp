@@ -26,4 +26,11 @@ public interface WorkItemStorage {
      * @return the updated work item.
      */
     WorkItemModel update(WorkItemModel workItem);
+
+    /**
+     * Delete a single work item.
+     *
+     * @param id the id of the work item to delete.
+     */
+    void delete(Long id);
 }
