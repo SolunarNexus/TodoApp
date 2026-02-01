@@ -28,9 +28,7 @@ public class TodoListController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Work item added successfully",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = WorkItemModel.class))}),
-            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
-    })
+            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)})
     public WorkItemModel addWorkItem(WorkItemDtoCreate workItemDto) {
         return todoListService.addWorkItem(new WorkItemModel(workItemDto));
     }
