@@ -1,30 +1,32 @@
 package cz.aov.todo.model;
 
+import cz.aov.todo.controller.dto.WorkItemDtoCreate;
 import lombok.Data;
-import lombok.Builder;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class WorkItemModel {
     private Long id;
     private String title;
     private String description;
     private Status status;
     private Priority priority;
-    private LocalDateTime createdAt;
     private LocalDateTime completedAt;
+    private final LocalDateTime createdAt = LocalDateTime.now();
 
-    private enum Status {
+    public WorkItemModel(WorkItemDtoCreate dto){
+        this.title = dto.getTitle();
+        this.description = dto.getDescription();
+        this.status = Status.TODO;
+        this.priority = dto.getPriority();
+    }
+
+    public enum Status {
         TODO, IN_PROGRESS, COMPLETED
     }
 
-    private enum Priority {
+    public enum Priority {
         LOWEST, LOW, MEDIUM, HIGH, HIGHEST
     }
 }
