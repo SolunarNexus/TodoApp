@@ -10,4 +10,12 @@ public interface TodoListService {
      * @return the added work item or null on error.
      */
     WorkItemModel addWorkItem(WorkItemModel workItem);
+
+    /**
+     * Retrieves a work item from the to-do list.
+     *
+     * @param id the id of the work item to retrieve.
+     * @return the work item or null if not found.
+     */
+    WorkItemModel getWorkItem(Long id);
 }

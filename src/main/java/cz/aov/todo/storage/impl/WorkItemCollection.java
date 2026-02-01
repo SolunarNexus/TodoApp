@@ -28,4 +28,13 @@ public class WorkItemCollection implements WorkItemStorage {
         }
         return workItem;
     }
+
+    @Override
+    public WorkItemModel get(Long id) {
+        WorkItemModel workItem = workItems.get(id);
+        if (workItem == null)
+            log.severe(MessageFormat.format("Work item with id [{0}] not found", id));
+
+        return workItem;
+    }
 }

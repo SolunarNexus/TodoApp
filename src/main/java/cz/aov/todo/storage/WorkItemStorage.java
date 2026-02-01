@@ -10,4 +10,12 @@ public interface WorkItemStorage {
      * @return the persisted work item.
      */
     WorkItemModel save(WorkItemModel workItem);
+
+    /**
+     * Retrieve a single work item.
+     *
+     * @param id the id of the work item to retrieve.
+     * @return the work item or null if not found.
+     */
+    WorkItemModel get(Long id);
 }
