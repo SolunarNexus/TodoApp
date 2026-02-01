@@ -24,4 +24,9 @@ public class TodoListServiceImpl implements TodoListService {
     public WorkItemModel getWorkItem(Long id) {
         return storage.get(id);
     }
+
+    @Override
+    public WorkItemModel updateWorkItem(WorkItemModel workItem) {
+        return storage.update(workItem);
+    }
 }
