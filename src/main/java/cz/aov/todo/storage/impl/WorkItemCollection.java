@@ -19,7 +19,13 @@ public class WorkItemCollection implements WorkItemStorage {
     @Override
     public WorkItemModel save(WorkItemModel workItem) {
         workItem.setId(count.incrementAndGet());
-        workItems.put(workItem.getId(), workItem);
+
+        try {
+            workItems.put(workItem.getId(), workItem);
+        } catch (Exception e) {
+            log.severe(MessageFormat.format("Failed to save work item {0}, reason {1}", workItem, e.getMessage()));
+            throw e;
+        }
         return workItem;
     }
 
