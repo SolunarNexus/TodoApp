@@ -1,6 +1,7 @@
 package cz.aov.todo.model;
 
 import cz.aov.todo.controller.dto.WorkItemDtoCreate;
+import cz.aov.todo.controller.dto.WorkItemDtoUpdate;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -20,6 +21,15 @@ public class WorkItemModel {
         this.description = dto.getDescription();
         this.status = Status.TODO;
         this.priority = dto.getPriority();
+    }
+
+    public WorkItemModel(WorkItemDtoUpdate dto){
+        this.id = dto.getId();
+        this.title = dto.getTitle();
+        this.description = dto.getDescription();
+        this.status = dto.getStatus();
+        this.priority = dto.getPriority();
+        this.completedAt = dto.getCompletedAt();
     }
 
     public enum Status {
