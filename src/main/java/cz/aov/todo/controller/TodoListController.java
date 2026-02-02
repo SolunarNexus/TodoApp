@@ -33,7 +33,7 @@ public class TodoListController {
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Add work item to the todo list")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Work item added successfully",
+            @ApiResponse(responseCode = "201", description = "Work item added successfully",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = WorkItemModel.class))}),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
     })
