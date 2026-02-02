@@ -50,7 +50,6 @@ class TodoListServiceImplTest {
         Map<LocalDate, List<WorkItemModel>> result = service.findCompletedWorkItemsByDays();
 
         // ASSERT
-        assertThat(result).isNotEmpty();
         assertThat(result.keySet()).hasSize(2);
         assertThat(result.values()).allSatisfy(list -> assertThat(list).isNotEmpty());
         assertThat(result.entrySet())
