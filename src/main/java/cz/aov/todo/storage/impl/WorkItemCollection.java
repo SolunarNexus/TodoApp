@@ -7,8 +7,10 @@ import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 @Log
 @Component
@@ -27,6 +29,19 @@ public class WorkItemCollection implements WorkItemStorage {
             throw e;
         }
         return workItem;
+    }
+
+    @Override
+    public List<WorkItemModel> saveAll(List<WorkItemModel> list) {
+        list.forEach(item -> item.setId(count.incrementAndGet()));
+
+        try {
+            workItems.putAll(list.stream().collect(Collectors.toMap(WorkItemModel::getId, item -> item)));
+        } catch (Exception e) {
+            log.severe(MessageFormat.format("Bulk load failed. Reason: {0}", e.getMessage()));
+            throw e;
+        }
+        return list;
     }
 
     @Override

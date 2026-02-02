@@ -2,6 +2,8 @@ package cz.aov.todo.storage;
 
 import cz.aov.todo.model.WorkItemModel;
 
+import java.util.List;
+
 public interface WorkItemStorage {
     /**
      * Persist a single work item.
@@ -10,6 +12,14 @@ public interface WorkItemStorage {
      * @return the persisted work item.
      */
     WorkItemModel save(WorkItemModel workItem);
+
+    /**
+     * Persist a list of work items.
+     *
+     * @param list a list of work items.
+     * @return persisted work items.
+     */
+    List<WorkItemModel> saveAll(List<WorkItemModel> list);
 
     /**
      * Retrieve a single work item.
