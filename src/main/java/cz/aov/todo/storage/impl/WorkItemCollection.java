@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Log
@@ -67,6 +68,11 @@ public class WorkItemCollection implements WorkItemStorage {
             logAndThrowIllegalArgumentException(MessageFormat.format("Work item with id [{0}] cannot be deleted. Reason: not found.", id));
 
         workItems.remove(id);
+    }
+
+    @Override
+    public List<WorkItemModel> filter(Predicate<WorkItemModel> predicate) {
+        return workItems.values().stream().filter(predicate).toList();
     }
 
     private boolean workItemNotPresent(Long id) {

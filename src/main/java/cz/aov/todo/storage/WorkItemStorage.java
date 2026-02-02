@@ -3,6 +3,7 @@ package cz.aov.todo.storage;
 import cz.aov.todo.model.WorkItemModel;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public interface WorkItemStorage {
     /**
@@ -43,4 +44,12 @@ public interface WorkItemStorage {
      * @param id the id of the work item to delete.
      */
     void delete(Long id);
+
+    /**
+     * Retrieve work items satisfying a predicate.
+     *
+     * @param predicate the predicate to filter work items.
+     * @return the list of work items satisfying the predicate.
+     */
+    List<WorkItemModel> filter(Predicate<WorkItemModel> predicate);
 }

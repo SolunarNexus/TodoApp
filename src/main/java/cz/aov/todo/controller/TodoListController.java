@@ -17,7 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/todo-list")
@@ -110,5 +112,26 @@ public class TodoListController {
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
+    }
+
+    @GetMapping("/completed")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Retrieve completed work items grouped by days")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Work items found", content = @Content),
+    })
+    public Map<LocalDate, List<WorkItemModel>> retrieveCompletedWorkItemsByDays() {
+        return todoListService.findCompletedWorkItemsByDays();
+    }
+
+    @GetMapping("/completed-on")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Retrieve completed work items for specific day")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Work items found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
+    })
+    public List<WorkItemModel> retrieveCompletedWorkItemsForDay(LocalDate date){
+        return todoListService.findCompleteWorkItemsForDate(date);
     }
 }

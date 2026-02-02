@@ -2,11 +2,15 @@ package cz.aov.todo.model;
 
 import cz.aov.todo.controller.dto.WorkItemDtoCreate;
 import cz.aov.todo.controller.dto.WorkItemDtoUpdate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
+@Builder
 public class WorkItemModel {
     private Long id;
     private String title;
@@ -38,5 +42,9 @@ public class WorkItemModel {
 
     public enum Priority {
         LOWEST, LOW, MEDIUM, HIGH, HIGHEST
+    }
+
+    public boolean isCompleted(){
+        return this.completedAt != null;
     }
 }
