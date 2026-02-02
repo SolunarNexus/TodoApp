@@ -2,7 +2,9 @@ package cz.aov.todo.service;
 
 import cz.aov.todo.model.WorkItemModel;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface TodoListService {
     /**
@@ -42,4 +44,11 @@ public interface TodoListService {
      * @param id the id of the work item to remove.
      */
     void removeWorkItem(Long id);
+
+    /**
+     * Find completed work items grouped by days.
+     *
+     * @return the map of work items where the key is the day and the value is the list of work items completed on that day.
+     */
+    Map<LocalDate, List<WorkItemModel>> findCompletedWorkItemsByDays();
 }

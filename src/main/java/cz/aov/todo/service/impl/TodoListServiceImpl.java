@@ -6,7 +6,11 @@ import cz.aov.todo.storage.WorkItemStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TodoListServiceImpl implements TodoListService {
@@ -40,5 +44,22 @@ public class TodoListServiceImpl implements TodoListService {
     @Override
     public void removeWorkItem(Long id) {
         storage.delete(id);
+    }
+
+    @Override
+    public Map<LocalDate, List<WorkItemModel>> findCompletedWorkItemsByDays() {
+        List<WorkItemModel> completed = storage.filter(item -> item.getCompletedAt() != null);
+        Map<LocalDate, List<WorkItemModel>> result = new HashMap<>();
+
+        completed.forEach(item -> {
+            LocalDate day = item.getCompletedAt().toLocalDate();
+
+            if (!result.containsKey(day))
+                result.put(day, new ArrayList<>());
+
+            result.get(day).add(item);
+        });
+
+        return result;
     }
 }
