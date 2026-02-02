@@ -47,7 +47,7 @@ public class TodoListServiceImpl implements TodoListService {
 
     @Override
     public Map<LocalDate, List<WorkItemModel>> findCompletedWorkItemsByDays() {
-        return storage.filter(item -> item.getCompletedAt() != null)
+        return storage.filter(WorkItemModel::isCompleted)
                       .stream()
                       .collect(Collectors.groupingBy(item -> item.getCompletedAt().toLocalDate()));
     }
