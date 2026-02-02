@@ -3,6 +3,7 @@ package cz.aov.todo.storage.impl;
 import cz.aov.todo.model.WorkItemModel;
 import cz.aov.todo.storage.WorkItemStorage;
 import lombok.extern.java.Log;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Log
 @Component
+@Profile("inmemory-collection")
 public class WorkItemCollection implements WorkItemStorage {
     private static final AtomicLong count = new AtomicLong(0);
     private final Map<Long, WorkItemModel> workItems = new HashMap<>();
