@@ -6,6 +6,8 @@ import cz.aov.todo.storage.WorkItemStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TodoListServiceImpl implements TodoListService {
     private final WorkItemStorage storage;
@@ -18,6 +20,11 @@ public class TodoListServiceImpl implements TodoListService {
     @Override
     public WorkItemModel addWorkItem(WorkItemModel workItem) {
         return storage.save(workItem);
+    }
+
+    @Override
+    public List<WorkItemModel> addWorkItems(List<WorkItemModel> list) {
+        return storage.saveAll(list);
     }
 
     @Override
