@@ -38,7 +38,7 @@ class TodoListServiceImplTest {
     }
 
     @Test
-    void completedItemsShouldBeInCorrespondingDayBuckets() {
+    void completedItemsShouldBeInCorrespondingDayGroups() {
         // ARRANGE
         Mockito.when(storage.filter(any())).thenReturn(List.of(
                 WorkItemModel.builder().completedAt(LocalDateTime.now()).build(),
