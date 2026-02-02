@@ -123,4 +123,15 @@ public class TodoListController {
     public Map<LocalDate, List<WorkItemModel>> retrieveCompletedWorkItemsByDays() {
         return todoListService.findCompletedWorkItemsByDays();
     }
+
+    @GetMapping("/completed-on")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Retrieve completed work items for specific day")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Work items found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
+    })
+    public List<WorkItemModel> retrieveCompletedWorkItemsForDay(LocalDate date){
+        return todoListService.findCompleteWorkItemsForDate(date);
+    }
 }
