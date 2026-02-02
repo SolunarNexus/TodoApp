@@ -2,6 +2,8 @@ package cz.aov.todo.service;
 
 import cz.aov.todo.model.WorkItemModel;
 
+import java.util.List;
+
 public interface TodoListService {
     /**
      * Adds a work item to the to-do list.
@@ -10,6 +12,14 @@ public interface TodoListService {
      * @return the added work item or null on error.
      */
     WorkItemModel addWorkItem(WorkItemModel workItem);
+
+    /**
+     * Adds a list of work items to the to-do list.
+     *
+     * @param list the list of work items.
+     * @return the list of added work items.
+     */
+    List<WorkItemModel> addWorkItems(List<WorkItemModel> list);
 
     /**
      * Retrieves a work item from the to-do list.
