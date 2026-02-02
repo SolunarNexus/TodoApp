@@ -59,4 +59,23 @@ class TodoListServiceImplTest {
                                 assertThat(item.getCompletedAt().toLocalDate()).isEqualTo(entry.getKey())));
     }
 
+    @Test
+    void completedItemsShouldBeIncludedForGivenDay() {
+        // ARRANGE
+        LocalDate date = LocalDate.now();
+        Mockito.when(storage.filter(any())).thenReturn(List.of(
+                WorkItemModel.builder().completedAt(date.atStartOfDay()).build(),
+                WorkItemModel.builder().completedAt(date.atStartOfDay().plusHours(3)).build(),
+                WorkItemModel.builder().completedAt(date.atStartOfDay().plusMinutes(15)).build()
+        ));
+
+        // ACT
+        List<WorkItemModel> result = service.findCompleteWorkItemsForDate(date);
+
+        // ASSERT
+        assertThat(result)
+                .hasSize(3)
+                .allSatisfy(item ->
+                        assertThat(item.getCompletedAt().toLocalDate()).isEqualTo(date));
+    }
 }
