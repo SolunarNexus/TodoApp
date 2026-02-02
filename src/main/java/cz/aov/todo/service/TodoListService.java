@@ -51,4 +51,12 @@ public interface TodoListService {
      * @return the map of work items where the key is the day and the value is the list of work items completed on that day.
      */
     Map<LocalDate, List<WorkItemModel>> findCompletedWorkItemsByDays();
+
+    /**
+     * Find complete work items on specific day.
+     *
+     * @param date the day of interest.
+     * @return list of work items completed on given day.
+     */
+    List<WorkItemModel> findCompleteWorkItemsForDate(LocalDate date);
 }

@@ -43,4 +43,8 @@ public class WorkItemModel {
     public enum Priority {
         LOWEST, LOW, MEDIUM, HIGH, HIGHEST
     }
+
+    public boolean isCompleted(){
+        return this.completedAt != null;
+    }
 }
